@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Venzo — Money Moves Different Here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #f6f3ef;
+    --ink: #161616;
+    --teal: #243b42;
+    --teal-2: #2c4750;
+    --grey-card: #d5d5d5;
+    --lilac: #e2b6f2;
+    --mint: #d6f0b8;
+    --coral: #f08a78;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Logo ---------- */
+  .logo { position: relative; display: inline-block; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+  .logo .mark { position: absolute; top: -0.32em; right: -0.42em; width: 0.5em; height: 0.5em; }
+
+  /* ---------- Nav ---------- */
+  nav { padding: 30px 0 22px; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  nav .logo { font-size: 44px; }
+  .segment { display: flex; gap: 8px; }
+  .segment button {
+    font-family: "Roboto Mono", monospace; font-size: 12px;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 16px; border-radius: 999px;
+    border: 1px solid #b9b9b9; background: #e7e5e2; color: #333; cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .segment button.active { background: #fff; border-color: #999; }
+  .segment button svg { width: 14px; height: 14px; }
+  .links { display: flex; align-items: center; gap: 28px; font-size: 13px; font-weight: 500; }
+  .links a:hover { opacity: .65; }
+  .btn {
+    display: inline-block; background: var(--teal); color: #fff;
+    font-size: 13px; font-weight: 500; padding: 12px 34px; border-radius: 999px;
+    border: none; cursor: pointer; transition: transform .15s, background .2s;
+  }
+  .btn:hover { background: #1a2d33; transform: translateY(-1px); }
+
+  /* ---------- Hero ---------- */
+  .hero { display: grid; grid-template-columns: 0.75fr 1fr; gap: 14px; padding-bottom: 28px; }
+  .hero-text {
+    background: var(--grey-card); border-radius: var(--radius);
+    padding: 50px 36px 36px; display: flex; flex-direction: column; min-height: 420px;
+  }
+  .hero-text h1 { font-size: 46px; line-height: 1.1; font-weight: 500; letter-spacing: -0.01em; }
+  .hero-text p { margin-top: 34px; color: #4a4a4a; font-size: 15px; line-height: 1.4; }
+  .hero-text .btn { margin-top: 26px; align-self: flex-start; padding: 12px 22px; }
+
+  .hero-visual {
+    position: relative; border-radius: var(--radius); overflow: hidden; min-height: 420px;
+    background: radial-gradient(ellipse at 70% 40%, #6b3a22 0%, #3a1e12 55%, #1f100a 100%);
+  }
+  .hero-visual .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-visual .overlay-copy {
+    position: absolute; left: 30px; top: 110px; z-index: 2; color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,.45);
+  }
+  .overlay-copy h2 { font-size: 34px; font-weight: 700; line-height: 1.08; }
+  .overlay-copy p { margin-top: 12px; font-size: 13px; opacity: .9; }
+  .badge {
+    position: absolute; z-index: 3; right: 18px; top: 18px;
+    width: 74px; height: 74px; border-radius: 50%; background: #fff;
+    display: grid; place-items: center; text-align: center;
+    font-size: 9px; font-weight: 700; line-height: 1.15; color: var(--teal);
+    box-shadow: 0 4px 14px rgba(0,0,0,.3);
+  }
+  .badge span { display: block; font-size: 15px; font-weight: 900; color: var(--ink); }
+
+  /* phone */
+  .phone {
+    position: absolute; z-index: 2; left: 50%; top: 50%;
+    width: 210px; height: 400px; transform: translate(-30%, -46%) rotate(-8deg);
+    background: #2b2b2e; border-radius: 38px; padding: 9px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.55), inset 0 0 0 2px #4a4a4f;
+  }
+  .screen {
+    width: 100%; height: 100%; border-radius: 30px; overflow: hidden;
+    background: linear-gradient(180deg, #ece7e1, #dcd5cd);
+    position: relative; display: flex; flex-direction: column; align-items: center;
+  }
+  .island { width: 70px; height: 20px; background: #111; border-radius: 12px; margin-top: 10px; }
+  .screen .topbar { width: 100%; display: flex; justify-content: space-between; padding: 10px 16px 0; font-size: 9px; color: #555; font-weight: 500; }
+  .vcard {
+    margin-top: 26px; width: 84%; aspect-ratio: 1.586; border-radius: 12px;
+    background: linear-gradient(135deg, #f49a86 0%, var(--coral) 55%, #e2705f 100%);
+    position: relative; box-shadow: 0 10px 22px rgba(160,60,40,.35); overflow: hidden;
+  }
+  .vcard::after {
+    content: ""; position: absolute; width: 160px; height: 160px; border-radius: 50%;
+    right: -60px; bottom: -80px; background: rgba(255,255,255,.12);
+  }
+  .vcard .logo { position: absolute; top: 12px; left: 13px; font-size: 15px; color: #fff; }
+  .vcard .chip { position: absolute; left: 13px; top: 44px; width: 26px; height: 19px; border-radius: 4px; background: linear-gradient(135deg,#f7e3a1,#d4b25b); }
+  .vcard .digits { position: absolute; left: 13px; bottom: 12px; font-family: "Roboto Mono", monospace; font-size: 9px; color: rgba(255,255,255,.9); letter-spacing: .1em; }
+  .vcard .net { position: absolute; right: 12px; bottom: 9px; display: flex; }
+  .vcard .net i { width: 16px; height: 16px; border-radius: 50%; display: block; }
+  .vcard .net i:first-child { background: rgba(255,255,255,.85); }
+  .vcard .net i:last-child { background: rgba(255,255,255,.5); margin-left: -7px; }
+  .tap { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 10px; color: #777; font-size: 10px; }
+  .tap .ring {
+    width: 54px; height: 54px; border-radius: 50%; border: 2px solid #bbb;
+    display: grid; place-items: center; position: relative;
+  }
+  .tap .ring::before {
+    content: ""; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid #ccc;
+    animation: pulse 2.2s ease-out infinite;
+  }
+  @keyframes pulse { 0% { transform: scale(.8); opacity: 1; } 100% { transform: scale(1.35); opacity: 0; } }
+  .screen .amount { margin-top: auto; margin-bottom: 26px; text-align: center; }
+  .screen .amount small { font-size: 9px; color: #888; display: block; }
+  .screen .amount strong { font-size: 20px; color: #222; }
+
+  /* ---------- Features ---------- */
+  .features {
+    border-top: 1px solid #ddd8d1; border-radius: 34px 34px 0 0;
+    padding: 36px 0 34px; background: var(--cream);
+  }
+  .features .eyebrow { font-size: 18px; color: #333; }
+  .features h2 { font-size: 26px; font-weight: 400; margin-top: 4px; }
+  .feature-grid { margin-top: 26px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .fcard {
+    background: #fff; border-radius: 12px; padding: 18px 14px 14px; text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08); transition: transform .2s, box-shadow .2s;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .fcard:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+  .fcard .label { font-size: 12px; color: #444; }
+  .fcard h3 { font-size: 14px; font-weight: 500; margin-top: 6px; line-height: 1.3; min-height: 36px; }
+  .fcard svg { width: 130px; height: 100px; margin-top: 12px; }
+  .fcard .shadow { width: 70px; height: 7px; border-radius: 50%; background: #2a1d33; margin-top: 6px; }
+
+  /* ---------- About ---------- */
+  .about {
+    background: var(--teal); color: #fff; border-radius: 34px 34px 0 0;
+    padding: 50px 0 62px; text-align: center;
+  }
+  .about .eyebrow { color: var(--mint); font-size: 18px; }
+  .about h2 { font-size: 30px; font-weight: 500; line-height: 1.2; margin-top: 6px; }
+  .about .lead { max-width: 640px; margin: 28px auto 0; font-size: 14px; line-height: 1.5; opacity: .92; }
+  .pillars { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: left; }
+  .pillar { border: 1px solid #3d5961; background: var(--teal-2); border-radius: 8px; padding: 14px 12px 20px; }
+  .pillar .tag { font-family: "Roboto Mono", monospace; font-size: 8px; letter-spacing: .08em; opacity: .75; }
+  .pillar h4 { font-size: 13px; margin-top: 12px; font-weight: 700; }
+  .pillar p { font-size: 9.5px; line-height: 1.5; margin-top: 8px; opacity: .8; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--cream); border-radius: 34px 34px 0 0; margin-top: -30px;
+    padding: 52px 0 60px; text-align: center; position: relative;
+  }
+  footer .logo { font-size: 104px; }
+  footer .tag { font-size: 20px; margin-top: 18px; }
+  footer h5 { font-size: 15px; margin-top: 26px; font-weight: 700; }
+  footer .contact { margin-top: 14px; font-size: 13px; line-height: 1.5; }
+  footer .contact a:hover { text-decoration: underline; }
+  footer .copy { margin-top: 30px; font-size: 11px; color: #888; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .links a:not(.btn) { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .pillars { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .segment { display: none; }
+    nav .logo { font-size: 34px; }
+    .hero-text h1 { font-size: 38px; }
+    .overlay-copy { top: 30px !important; }
+    .overlay-copy h2 { font-size: 26px; }
+    .phone { transform: translate(-40%, -40%) rotate(-8deg) scale(.85); }
+    footer .logo { font-size: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Reusable logo mark -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="venzo-mark" viewBox="0 0 20 20">
+      <path d="M2 2 H18 V18 L13 13 V7 H7 Z" fill="#e2b6f2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="wrap">
+    <a href="#" class="logo">VENZO<svg class="mark"><use href="#venzo-mark"/></svg></a>
+
+    <div class="segment" role="tablist">
+      <button class="active" data-seg="personal">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="5.5" r="2.8"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/></svg>
+        Personal
+      </button>
+      <button data-seg="business">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="4.5" width="12" height="9" rx="1.5"/><path d="M5.5 4.5V3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1.5M2 8.5h12"/></svg>
+        Business
+      </button>
+    </div>
+
+    <div class="links">
+      <a href="#about">About Us</a>
+      <a href="#features">Features</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#" class="btn">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="wrap hero">
+  <div class="hero-text">
+    <h1>Money<br/>Moves<br/>Different<br/>Here.</h1>
+    <p>No account numbers. No app switching.<br/>Just seamless in-person payments.</p>
+    <a href="#" class="btn">Open a free Venzo account</a>
+  </div>
+
+  <div class="hero-visual" aria-label="A phone showing a Venzo card ready for tap-to-pay">
+    <!-- Warm market-stall backdrop -->
+    <svg class="scene" viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="fruit" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#ffb07a"/>
+          <stop offset="45%" stop-color="#e2583a"/>
+          <stop offset="100%" stop-color="#7a1f14"/>
+        </radialGradient>
+        <radialGradient id="fruit2" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#ffc58a"/>
+          <stop offset="50%" stop-color="#ea6d3e"/>
+          <stop offset="100%" stop-color="#8a2a17"/>
+        </radialGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="2.2"/></filter>
+        <linearGradient id="vignette" x1="0" x2="1">
+          <stop offset="0" stop-color="#000" stop-opacity=".55"/>
+          <stop offset=".45" stop-color="#000" stop-opacity=".05"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".25"/>
+        </linearGradient>
+      </defs>
+      <g filter="url(#blur)">
+        <circle cx="380" cy="40" r="52" fill="url(#fruit)"/>
+        <circle cx="470" cy="70" r="48" fill="url(#fruit2)"/>
+        <circle cx="560" cy="30" r="50" fill="url(#fruit)"/>
+        <circle cx="520" cy="150" r="54" fill="url(#fruit2)"/>
+        <circle cx="590" cy="220" r="46" fill="url(#fruit)"/>
+        <circle cx="430" cy="160" r="40" fill="url(#fruit)"/>
+        <circle cx="560" cy="320" r="52" fill="url(#fruit2)"/>
+        <circle cx="470" cy="380" r="48" fill="url(#fruit)"/>
+        <circle cx="290" cy="20" r="40" fill="url(#fruit2)"/>
+        <circle cx="70" cy="400" r="60" fill="#3b1c10"/>
+      </g>
+      <rect width="600" height="420" fill="url(#vignette)"/>
+    </svg>
+
+    <div class="overlay-copy">
+      <h2>Spend on life,<br/>save money.</h2>
+      <p>Spare change, turned into savings.</p>
+    </div>
+
+    <div class="badge"><div><span>4.8★</span>Rated by<br/>our users</div></div>
+
+    <div class="phone">
+      <div class="screen">
+        <div class="island"></div>
+        <div class="topbar"><span>9:41</span><span>Venzo Pay</span></div>
+        <div class="vcard">
+          <span class="logo">VENZO<svg class="mark"><use href="#venzo-mark"/></svg></span>
+          <span class="chip"></span>
+          <span class="digits">•••• 4417</span>
+          <span class="net"><i></i><i></i></span>
+        </div>
+        <div class="tap">
+          <div class="ring">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round"><path d="M8 7a7 7 0 0 1 0 10M12 4.5a11 11 0 0 1 0 15M4.5 9.5a3.5 3.5 0 0 1 0 5"/></svg>
+          </div>
+          Hold near reader
+        </div>
+        <div class="amount"><small>Paying Mama Nkechi's Fruits</small><strong>₦4,500.00</strong></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+  <div class="wrap">
+    <p class="eyebrow">Features</p>
+    <h2>Less hassle at checkouts</h2>
+
+    <div class="feature-grid">
+      <!-- Scan & Pay -->
+      <div class="fcard">
+        <span class="label">Scan &amp; Pay</span>
+        <h3>No account numbers. Just scan and pay with QR</h3>
+        <svg viewBox="0 0 130 100" fill="none" stroke="#1d1d1d" stroke-width="2" stroke-linejoin="round">
+          <path d="M20 70 L65 92 L112 68 L66 48 Z" fill="#fff"/>
+          <rect x="34" y="18" width="24" height="44" rx="4" fill="#8fe0cf" transform="rotate(-12 46 40)"/>
+          <rect x="52" y="12" width="24" height="46" rx="4" fill="#e2b6f2" transform="rotate(-4 64 35)"/>
+          <rect x="70" y="14" width="24" height="44" rx="4" fill="#f5a35e" transform="rotate(8 82 36)"/>
+          <rect x="76" y="26" width="10" height="10" fill="#1d1d1d" transform="rotate(8 82 36)"/>
+          <path d="M32 74 L66 88 L100 72" stroke-width="1.5"/>
+        </svg>
+        <div class="shadow"></div>
+      </div>
+
+      <!-- Stashes -->
+      <div class="fcard">
+        <span class="label">Stashes</span>
+        <h3>Set money aside for different expenses.</h3>
+        <svg viewBox="0 0 130 100" fill="none" stroke="#1d1d1d" stroke-width="2" stroke-linejoin="round">
+          <path d="M26 20 H62 V86 L56 82 L50 86 L44 82 L38 86 L32 82 L26 86 Z" fill="#fff"/>
+          <text x="31" y="32" font-family="Roboto Mono, monospace" font-size="9" fill="#1d1d1d" stroke="none" font-weight="700">BILL</text>
+          <path d="M31 42 H56 M31 50 H50 M31 58 H54 M31 66 H46" stroke-width="1.5"/>
+          <rect x="66" y="34" width="22" height="50" rx="11" fill="#fff"/>
+          <circle cx="77" cy="50" r="5" fill="#fff"/><circle cx="77" cy="68" r="5" fill="#fff"/>
+          <path d="M84 30 C102 16 124 28 118 50 C112 70 92 64 90 52" fill="#c9b3ef"/>
+          <circle cx="104" cy="40" r="3" fill="#1d1d1d" stroke="none"/>
+        </svg>
+        <div class="shadow"></div>
+      </div>
+
+      <!-- Send Money -->
+      <div class="fcard">
+        <span class="label">Send Money</span>
+        <h3>Move money with ease to other accounts.</h3>
+        <svg viewBox="0 0 130 100" fill="none" stroke="#1d1d1d" stroke-width="2" stroke-linejoin="round">
+          <path d="M16 74 L64 92 L116 72 L68 56 Z" fill="#7fe2c4"/>
+          <ellipse cx="66" cy="52" rx="34" ry="24" fill="#f7f1ea"/>
+          <path d="M40 34 L46 22 L54 32" fill="#f7f1ea"/>
+          <ellipse cx="98" cy="54" rx="6" ry="8" fill="#f2cfc6"/>
+          <circle cx="96" cy="52" r="1.2" fill="#1d1d1d"/><circle cx="100" cy="52" r="1.2" fill="#1d1d1d"/>
+          <path d="M48 42 H62 V48 H48 Z M66 42 H80 V48 H66 Z M62 45 H66" fill="#1d1d1d"/>
+          <path d="M54 70 V80 M78 70 V80"/>
+          <rect x="58" y="28" width="14" height="3" rx="1.5" fill="#1d1d1d"/>
+        </svg>
+        <div class="shadow"></div>
+      </div>
+
+      <!-- Track -->
+      <div class="fcard">
+        <span class="label">Track Your Money</span>
+        <h3>Keep track of your money from one place.</h3>
+        <svg viewBox="0 0 130 100" fill="none" stroke="#1d1d1d" stroke-width="2" stroke-linejoin="round">
+          <path d="M30 30 L70 18 L104 30 L104 76 L64 90 L30 76 Z" fill="#fff"/>
+          <path d="M30 30 L64 42 L104 30 M64 42 V90" />
+          <path d="M38 44 L58 51 V78 L38 71 Z" fill="#f4eef6"/>
+          <circle cx="48" cy="61" r="7" fill="#fff"/>
+          <path d="M48 56 V66 M43 61 H53 M44.5 57.5 L51.5 64.5 M51.5 57.5 L44.5 64.5" stroke-width="1.3"/>
+          <path d="M72 50 L96 42 M72 58 L96 50 M72 66 L96 58 M72 74 L96 66" stroke-width="1.4"/>
+          <circle cx="90" cy="32" r="3" fill="#e2b6f2"/>
+        </svg>
+        <div class="shadow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <p class="eyebrow">A little about us</p>
+    <h2>We're changing the way<br/>money moves.</h2>
+    <p class="lead">Venzo is building a simpler way for you to move through your day - with less hassles at checkout, and more control over your money. We believe financial services should work around people's everyday lives, not make them more complicated. This is why we exist.</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="tag">01 / OUR MANDATE</span>
+        <h4>Simplify the everyday.</h4>
+        <p>To simplify everyday financial interactions by making payments, money transfers, and personal money management more accessible, seamless, and convenient.</p>
+      </div>
+      <div class="pillar">
+        <span class="tag">02 / OUR VISION</span>
+        <h4>A more effortless financial future.</h4>
+        <p>To become the preferred payment and money management platform for a generation that expects more from its money, creating a future where financial interactions are effortless and connected.</p>
+      </div>
+      <div class="pillar">
+        <span class="tag">03 / OUR MISSION</span>
+        <h4>Make money easier to move.</h4>
+        <p>To eliminate the everyday friction associated with making payments and managing money through simple, intuitive, and accessible financial technology.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="wrap">
+    <a href="#" class="logo">VENZO<svg class="mark"><use href="#venzo-mark"/></svg></a>
+    <p class="tag">Money Moves Different Here.</p>
+    <h5>Contact Us</h5>
+    <p class="contact">
+      <strong>Email:</strong> <a href="mailto:hello@venzo.io">hello@venzo.io</a><br/>
+      <strong>Mobile:</strong> <a href="tel:+2348021111611">+234 (0) 802 111 1611</a>
+    </p>
+    <p class="copy">© <span id="yr"></span> Venzo. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('.segment button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.segment button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
